@@ -1,9 +1,10 @@
+/*
+
 #include "stdafx.h"
 #include "cyclic_buffer.h"
 
-
-
-void cyclic_buffer::push(char element)
+template <typename T1, typename T2>
+T2 cyclic_buffer<T1,T2>::push(T1 element)
 {
 	if (fill_level >= 100)
 	{
@@ -17,11 +18,12 @@ void cyclic_buffer::push(char element)
 		tail = (tail + 1) % 100;
 		fill_level++;
 	}
+	return 0;
 }
 
 //------------------------------------------------------------------------
-
-char cyclic_buffer::pop()
+template <typename T1, typename T2>
+char cyclic_buffer<T1, T2>::pop()
 {	
 	char result;
 	if (fill_level == 0)
@@ -42,15 +44,15 @@ char cyclic_buffer::pop()
 	return result;
 }
 //------------------------------------------------------------------------
-
-void cyclic_buffer::size()
+template <typename T1, typename T2>
+int cyclic_buffer<T1, T2>::size()
 {
 	//cout << endl << "Number of elements in buffer: " << fill_level;
 }
 
 //------------------------------------------------------------------------
-
-bool cyclic_buffer::empty()
+template <typename T1, typename T2>
+bool cyclic_buffer<T1, T2>::empty()
 {
 
 	if (fill_level == 0) return true;
@@ -59,3 +61,4 @@ bool cyclic_buffer::empty()
 }
 
 
+*/

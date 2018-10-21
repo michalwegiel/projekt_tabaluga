@@ -38,9 +38,6 @@
     <ClCompile Include="super_buffer.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="cyclic_buffer.cpp">
-      <Filter>Pliki źródłowe\cyclic_buffer</Filter>
-    </ClCompile>
     <ClCompile Include="Ut_cyclic_buffer.cpp">
       <Filter>Pliki źródłowe\cyclic_buffer</Filter>
     </ClCompile>
