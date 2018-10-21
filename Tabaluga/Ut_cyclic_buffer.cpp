@@ -10,15 +10,32 @@ namespace CyclicBuffer
 	{
 	public:
 
-		TEST_METHOD(TestMethod1)
+		TEST_METHOD(pushAndPop)
 		{
 			cyclic_buffer buffer;
-
 			buffer.push('a');
-			
 			Assert::AreEqual('a', buffer.pop());	
 		}
 
+
+		TEST_METHOD(pushAndPop_1)
+		{
+			cyclic_buffer buffer;
+			buffer.push('a');
+			buffer.push('b');
+
+			Assert::AreEqual('a', buffer.pop());
+		}
+
+		TEST_METHOD(pushAndPop_2)
+		{
+			cyclic_buffer buffer;
+			buffer.push('a');
+			buffer.push('b');
+
+			buffer.pop();
+			Assert::AreEqual('b', buffer.pop());
+		}
 
 	};
 }
