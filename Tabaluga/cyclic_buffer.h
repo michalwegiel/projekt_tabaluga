@@ -1,26 +1,26 @@
 #pragma once
 #include "stdafx.h"
-template <typename T1, typename T2>
+template <typename T, int array_size>
 class cyclic_buffer
 {
 public:
 
-	T1 tab[100];
+	int tab[array_size];
 	int fill_level = 0;
 	int head = 0;
 	int tail = 0;
 	
 
 
-	T2 push(T1);
+	int push(T);
 	char pop();
 	int size();
 	bool empty();
 
 
 };
-template <typename T1, typename T2>
-T2 cyclic_buffer<T1, T2>::push(T1 element)
+template <typename T, int array_size>
+int cyclic_buffer<T, array_size>::push(T element)
 {
 	if (fill_level >= 100)
 	{
@@ -38,8 +38,8 @@ T2 cyclic_buffer<T1, T2>::push(T1 element)
 }
 
 //------------------------------------------------------------------------
-template <typename T1, typename T2>
-char cyclic_buffer<T1, T2>::pop()
+template <typename T, int array_size>
+char cyclic_buffer<T, array_size>::pop()
 {
 	char result;
 	if (fill_level == 0)
@@ -60,15 +60,15 @@ char cyclic_buffer<T1, T2>::pop()
 	return result;
 }
 //------------------------------------------------------------------------
-template <typename T1, typename T2>
-int cyclic_buffer<T1, T2>::size()
+template <typename T, int array_size>
+int cyclic_buffer<T, array_size>::size()
 {
 	//cout << endl << "Number of elements in buffer: " << fill_level;
 }
 
 //------------------------------------------------------------------------
-template <typename T1, typename T2>
-bool cyclic_buffer<T1, T2>::empty()
+template <typename T, int array_size>
+bool cyclic_buffer<T, array_size>::empty()
 {
 
 	if (fill_level == 0) return true;

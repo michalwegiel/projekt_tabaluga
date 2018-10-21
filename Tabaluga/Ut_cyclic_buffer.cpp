@@ -12,7 +12,7 @@ namespace CyclicBuffer
 
 		TEST_METHOD(pushAndPop)
 		{
-			cyclic_buffer<char, int>buffer;
+			cyclic_buffer<char, 5>buffer;
 			buffer.push('a');
 			Assert::AreEqual('a', buffer.pop());	
 		}
@@ -20,7 +20,7 @@ namespace CyclicBuffer
 
 		TEST_METHOD(pushAndPop_1)
 		{
-			cyclic_buffer<char, int>buffer;
+			cyclic_buffer<char, 5>buffer;
 			buffer.push('a');
 			buffer.push('b');
 
@@ -29,7 +29,7 @@ namespace CyclicBuffer
 
 		TEST_METHOD(pushAndPop_2)
 		{
-			cyclic_buffer<char, int>buffer;
+			cyclic_buffer<char, 5>buffer;
 			buffer.push('a');
 			buffer.push('b');
 
