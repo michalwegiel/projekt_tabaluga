@@ -7,11 +7,11 @@ public:
 	int fill_level = 0;
 	int head = 0;
 	int tail = 0;
-	int *w;
+	
 
 
 	void push(char);
-	void get_command(int*);
+	char pop();
 	void size();
 	bool empty();
 

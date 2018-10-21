@@ -21,8 +21,9 @@ void cyclic_buffer::push(char element)
 
 //------------------------------------------------------------------------
 
-void cyclic_buffer::get_command(int *w)
-{
+char cyclic_buffer::pop()
+{	
+	char result;
 	if (fill_level == 0)
 	{
 		//cout << endl << "Buffer is empty!";
@@ -30,14 +31,15 @@ void cyclic_buffer::get_command(int *w)
 	else
 	{
 			//cout << char(tab[head]);
-			*w = tab[head];
+			
 			head = (head + 1) % 100;
 			fill_level--;
+			result = tab[head - 1];
 	}
 		//cout << endl;
 	
 
-
+	return result;
 }
 //------------------------------------------------------------------------
 

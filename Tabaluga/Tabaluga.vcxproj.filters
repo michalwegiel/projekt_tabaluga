@@ -35,9 +35,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="unittest1.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="super_buffer.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
