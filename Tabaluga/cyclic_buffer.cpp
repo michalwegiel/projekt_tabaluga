@@ -9,6 +9,7 @@ void cyclic_buffer::push(char element)
 	{
 		//cout << endl << "Buffer is full!";
 	}
+
 	else
 	{
 		tab[tail] = element;
