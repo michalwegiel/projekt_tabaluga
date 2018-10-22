@@ -69,10 +69,10 @@ char cyclic_buffer<T, array_size>::pop()
 	else
 	{
 		//cout << char(tab[head]);
-
+		result = tab[head];
 		head = (head + 1) % array_size;
 		fill_level--;
-		result = tab[head - 1];
+		
 	}
 	//cout << endl;
 
