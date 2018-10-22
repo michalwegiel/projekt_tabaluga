@@ -5,20 +5,40 @@ class cyclic_buffer
 {
 public:
 
-	int tab[array_size];
-	int fill_level = 0;
-	int head = 0;
-	int tail = 0;
-	
-
-
+	cyclic_buffer();
+	~cyclic_buffer();
 	int push(T);
 	char pop();
 	int size();
 	bool empty();
+	
 
+private:
+
+	T *tab;
+	int fill_level;
+	int head;
+	int tail;
 
 };
+
+template <typename T, int array_size>
+cyclic_buffer<T, array_size>::cyclic_buffer()
+{
+	tab = new T [array_size];
+	fill_level = 0;
+	head = 0;
+	tail = 0;
+}
+
+template <typename T, int array_size>
+cyclic_buffer<T, array_size>::~cyclic_buffer()
+{
+	delete [] tab;
+}
+
+
+
 template <typename T, int array_size>
 int cyclic_buffer<T, array_size>::push(T element)
 {
