@@ -21,7 +21,7 @@ private:
 	int tail;
 
 };
-
+//------------------------------------------------------------------------
 template <typename T, int array_size>
 cyclic_buffer<T, array_size>::cyclic_buffer()
 {
@@ -30,7 +30,7 @@ cyclic_buffer<T, array_size>::cyclic_buffer()
 	head = 0;
 	tail = 0;
 }
-
+//------------------------------------------------------------------------
 template <typename T, int array_size>
 cyclic_buffer<T, array_size>::~cyclic_buffer()
 {
@@ -38,23 +38,24 @@ cyclic_buffer<T, array_size>::~cyclic_buffer()
 }
 
 
-
+//------------------------------------------------------------------------
 template <typename T, int array_size>
 int cyclic_buffer<T, array_size>::push(T element)
-{
-	if (fill_level >= array_size)
+{	
+	int result;
+	if (fill_level >= array_size) //zabezpieczenie przed przepelnieniem
 	{
-		//cout << endl << "Buffer is full!";
+		result = -1;
 	}
 
 	else
 	{
 		tab[tail] = element;
-		//cout << endl << element << " added in buffer on position: " << tail;
 		tail = (tail + 1) % array_size;
 		fill_level++;
+		result = 0;
 	}
-	return 0;
+	return result;
 }
 
 //------------------------------------------------------------------------
@@ -62,19 +63,19 @@ template <typename T, int array_size>
 char cyclic_buffer<T, array_size>::pop()
 {
 	char result;
-	if (fill_level == 0)
+	if (fill_level <= 0) //zabezpieczenie przed wyciaganiem z pustego bufora
 	{
-		//cout << endl << "Buffer is empty!";
+		result = '!';
 	}
 	else
 	{
-		//cout << char(tab[head]);
+		
 		result = tab[head];
 		head = (head + 1) % array_size;
 		fill_level--;
 		
 	}
-	//cout << endl;
+	
 
 
 	return result;

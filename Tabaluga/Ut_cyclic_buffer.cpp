@@ -47,7 +47,50 @@ namespace CyclicBuffer
 			buffer.pop();
 
 			Assert::AreEqual('c', buffer.pop());
-		} 
+		}
+
+		TEST_METHOD(pushAndfillbuffer)
+		{
+			cyclic_buffer<char, 5> buffer;
+			buffer.push('a');
+			buffer.push('b');
+			buffer.push('c');
+			buffer.push('d');
+			buffer.push('e');
+			
+
+
+			Assert::AreEqual(-1, buffer.push('f'));
+		}
+
+		TEST_METHOD(pushpositive)
+		{
+			cyclic_buffer<char, 5> buffer;
+			buffer.push('a');
+			buffer.push('b');
+			buffer.push('c');
+			buffer.push('d');
+			
+
+
+
+			Assert::AreEqual(0, buffer.push('e'));
+		}
+
+		TEST_METHOD(emptybuffer)
+		{
+			cyclic_buffer<char, 5> buffer;
+			buffer.push('a');
+			buffer.push('b');
+			buffer.push('c');
+			buffer.pop();
+			buffer.pop();
+			buffer.pop();
+
+
+
+			Assert::AreEqual('!', buffer.pop());
+		}
 
 
 	};
