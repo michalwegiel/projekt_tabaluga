@@ -42,7 +42,7 @@ cyclic_buffer<T, array_size>::~cyclic_buffer()
 template <typename T, int array_size>
 int cyclic_buffer<T, array_size>::push(T element)
 {
-	if (fill_level >= 100)
+	if (fill_level >= array_size)
 	{
 		//cout << endl << "Buffer is full!";
 	}
@@ -51,7 +51,7 @@ int cyclic_buffer<T, array_size>::push(T element)
 	{
 		tab[tail] = element;
 		//cout << endl << element << " added in buffer on position: " << tail;
-		tail = (tail + 1) % 100;
+		tail = (tail + 1) % array_size;
 		fill_level++;
 	}
 	return 0;
@@ -70,7 +70,7 @@ char cyclic_buffer<T, array_size>::pop()
 	{
 		//cout << char(tab[head]);
 
-		head = (head + 1) % 100;
+		head = (head + 1) % array_size;
 		fill_level--;
 		result = tab[head - 1];
 	}
