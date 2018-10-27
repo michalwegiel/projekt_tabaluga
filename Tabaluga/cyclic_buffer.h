@@ -1,5 +1,14 @@
 #pragma once
 #include "stdafx.h"
+
+enum CyclicBufferErrorCode
+{
+	SUCCESS = 0,
+	BUFFER_EMPTY = -1,
+	BUFFER_FULL = -2,
+	ERROR = -9
+};
+
 template <typename T, int array_size>
 class cyclic_buffer
 {
@@ -7,11 +16,11 @@ public:
 
 	cyclic_buffer();
 	~cyclic_buffer();
-	int push(T);
-	char pop();
+	CyclicBufferErrorCode push(T element);
+	CyclicBufferErrorCode pop(T *c);
 	int size();
 	bool empty();
-	
+
 
 private:
 
@@ -40,44 +49,46 @@ cyclic_buffer<T, array_size>::~cyclic_buffer()
 
 //------------------------------------------------------------------------
 template <typename T, int array_size>
-int cyclic_buffer<T, array_size>::push(T element)
+CyclicBufferErrorCode cyclic_buffer<T, array_size>::push(T element)
 {	
-	int result;
+	CyclicBufferErrorCode result;
 	if (fill_level >= array_size) //zabezpieczenie przed przepelnieniem
 	{
-		result = -1;
+		result = BUFFER_FULL;
 	}
 
+	else if (fill_level < 0)
+	{
+		result = ERROR;
+	}
 	else
 	{
 		tab[tail] = element;
 		tail = (tail + 1) % array_size;
 		fill_level++;
-		result = 0;
+		result = SUCCESS;
 	}
 	return result;
 }
 
 //------------------------------------------------------------------------
 template <typename T, int array_size>
-char cyclic_buffer<T, array_size>::pop()
+CyclicBufferErrorCode cyclic_buffer<T, array_size>::pop(T *c)
 {
-	char result;
+	CyclicBufferErrorCode result;
 	if (fill_level <= 0) //zabezpieczenie przed wyciaganiem z pustego bufora
 	{
-		result = '!';
+		result = BUFFER_EMPTY;
 	}
+
 	else
 	{
-		
-		result = tab[head];
+		*(c++) = tab[head];
 		head = (head + 1) % array_size;
 		fill_level--;
-		
+		result = SUCCESS;
 	}
 	
-
-
 	return result;
 }
 //------------------------------------------------------------------------
@@ -96,3 +107,23 @@ bool cyclic_buffer<T, array_size>::empty()
 	else return false;
 
 }
+/*
+eCircularBufferErrorCode CircularBuffer::GetCommand(char *command)
+{
+	if (true == isEmpty) {
+		*(command) = '\0';
+		return BUFFER_EMPTY;
+	}
+	while (TERMINATOR != buffer[head]) {
+
+		*(command++) = buffer[head++];
+
+		if (head >= bufferSize) {
+			head = 0;
+		}
+	}
+	*(command) = '\0';
+	UpdateBufferDecrease();
+	return SUCCESS;
+}
+*/
