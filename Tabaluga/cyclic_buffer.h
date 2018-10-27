@@ -95,7 +95,7 @@ CyclicBufferErrorCode cyclic_buffer<T, array_size>::pop(T *c)
 template <typename T, int array_size>
 int cyclic_buffer<T, array_size>::size()
 {
-	//cout << endl << "Number of elements in buffer: " << fill_level;
+	return fill_level;
 }
 
 //------------------------------------------------------------------------
@@ -107,23 +107,3 @@ bool cyclic_buffer<T, array_size>::empty()
 	else return false;
 
 }
-/*
-eCircularBufferErrorCode CircularBuffer::GetCommand(char *command)
-{
-	if (true == isEmpty) {
-		*(command) = '\0';
-		return BUFFER_EMPTY;
-	}
-	while (TERMINATOR != buffer[head]) {
-
-		*(command++) = buffer[head++];
-
-		if (head >= bufferSize) {
-			head = 0;
-		}
-	}
-	*(command) = '\0';
-	UpdateBufferDecrease();
-	return SUCCESS;
-}
-*/
