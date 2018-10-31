@@ -30,10 +30,11 @@ SuperBufferErrorCode Super_buffer::pop(char *command, int size)
 	if (*command == '\0')
 	{
 		do {
-			buffer.pop(command);
-		} while (*command != '\0');
+			if (buffer.pop(command) == BUFFER_EMPTY)
+				result = SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY;
+		} while (*command == '\0' && result != SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY);
 	}
-	while (*command != '\0' && i < size)
+	while (*command != '\0' && i < size && result != SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY)
 	{	
 		i++;
 		if (buffer.pop(++command) == BUFFER_EMPTY)
