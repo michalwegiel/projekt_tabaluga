@@ -1,18 +1,23 @@
 #pragma once
-class buffer
+#include "stdafx.h"
+#include "cyclic_buffer.h"
+
+enum SuperBufferErrorCode
 {
+	SUPER_BUFFER_SUCCESS = 0,
+	SUPER_BUFFER_ERROR = -1
+};
+
+class Super_buffer
+{
+	Cyclic_buffer<char, 100> buffer;
 public:
 
-	char tab[100];
-	int fill_level = 0;
-	int head = 0;
-	int tail = 0;
+	Super_buffer();
+	~Super_buffer();
+	SuperBufferErrorCode push(char element);
+	SuperBufferErrorCode pop(char *c, int size);
 
-
-	void push(char);
-	void get_command();
-	void size();
-	bool empty();
 	
 
 };
