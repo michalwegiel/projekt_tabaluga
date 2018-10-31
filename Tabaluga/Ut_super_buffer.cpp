@@ -30,8 +30,11 @@ namespace SuperBuffer
 			Super_buffer superbuffer;
 			superbuffer.push('a');
 			superbuffer.push('b');
+			superbuffer.push('c');
+			superbuffer.push('d');
+			superbuffer.push('\0');
 
-			Assert::AreEqual(static_cast<int> (SUPER_BUFFER_SUCCESS), static_cast<int> (superbuffer.pop(wsk,10)));
+			Assert::AreEqual(static_cast<int> (SUPER_BUFFER_SUCCESS), static_cast<int> (superbuffer.pop(wsk,5)));
 		}
 
 		TEST_METHOD(pushAndpopAndCheckArray)
