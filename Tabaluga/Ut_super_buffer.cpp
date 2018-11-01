@@ -212,6 +212,145 @@ namespace SuperBuffer
 
 			Assert::AreEqual('g',tab3[0]);
 		}
+
+		TEST_METHOD(FewCommands_many_enters)
+		{
+			char tab1[4] = "";
+			char *wsk1;
+			wsk1 = tab1;
+			char tab2[4] = "";
+			char *wsk2;
+			wsk2 = tab2;
+			char tab3[4] = "";
+			char *wsk3;
+			wsk3 = tab3;
+			Super_buffer superbuffer;
+			superbuffer.push('\0');
+			superbuffer.push('a');
+			superbuffer.push('b');
+			superbuffer.push('c');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('d');
+			superbuffer.push('e');
+			superbuffer.push('f');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('g');
+			superbuffer.push('h');
+			superbuffer.push('i');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('j');
+			superbuffer.push('k');
+			superbuffer.push('l');
+			superbuffer.push('\0');
+			superbuffer.push('m');
+			superbuffer.push('n');
+			superbuffer.push('o');
+			superbuffer.push('\0');
+			superbuffer.pop(wsk1, 4);
+			superbuffer.pop(wsk2, 4);
+			superbuffer.pop(wsk3, 4);
+
+			Assert::AreEqual('g', tab3[0]);
+		}
+
+		TEST_METHOD(FewCommands_firsttooshort)
+		{
+			char tab1[4] = "";
+			char *wsk1;
+			wsk1 = tab1;
+			char tab2[4] = "";
+			char *wsk2;
+			wsk2 = tab2;
+			char tab3[4] = "";
+			char *wsk3;
+			wsk3 = tab3;
+			Super_buffer superbuffer;
+			superbuffer.push('a');
+			superbuffer.push('b');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('\0');
+			superbuffer.push('d');
+			superbuffer.push('e');
+			superbuffer.push('f');
+			superbuffer.push('\0');
+			superbuffer.push('g');
+			superbuffer.push('h');
+			superbuffer.push('i');
+			superbuffer.push('\0');
+			superbuffer.push('j');
+			superbuffer.push('k');
+			superbuffer.push('l');
+			superbuffer.push('\0');
+			superbuffer.push('m');
+			superbuffer.push('n');
+			superbuffer.push('o');
+			superbuffer.push('\0');
+			superbuffer.pop(wsk1, 4);
+			superbuffer.pop(wsk2, 4);
+			superbuffer.pop(wsk3, 4);
+
+			Assert::AreEqual('g', tab3[0]);
+		}
+
+		TEST_METHOD(FewCommands_mixed)
+		{
+			char tab1[4] = "";
+			char *wsk1;
+			wsk1 = tab1;
+			char tab2[4] = "";
+			char *wsk2;
+			wsk2 = tab2;
+			char tab3[4] = "";
+			char *wsk3;
+			wsk3 = tab3;
+			Super_buffer superbuffer;
+			superbuffer.push('a');
+			superbuffer.push('b');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('c');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('\0');
+			superbuffer.push('d');
+			superbuffer.push('e');
+			superbuffer.push('f');
+			superbuffer.push('\0');
+			superbuffer.push('g');
+			superbuffer.push('h');
+			superbuffer.push('i');
+			superbuffer.push('\0');
+			superbuffer.push('j');
+			superbuffer.push('k');
+			superbuffer.push('l');
+			superbuffer.push('\0');
+			superbuffer.push('m');
+			superbuffer.push('n');
+			superbuffer.push('o');
+			superbuffer.push('\0');
+			superbuffer.pop(wsk1, 4);
+			superbuffer.pop(wsk2, 10);
+			superbuffer.pop(wsk3, 4);
+
+			Assert::AreEqual('g', tab3[0]);
+		}
 	};
 	
 }
