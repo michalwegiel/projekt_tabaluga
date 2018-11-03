@@ -14,6 +14,7 @@ enum SuperBufferErrorCode
 class Super_buffer
 {
 	Cyclic_buffer<char, 100> buffer;
+
 public:
 
 	Super_buffer();
@@ -21,6 +22,10 @@ public:
 	SuperBufferErrorCode push(char element);
 	SuperBufferErrorCode pop(char *c, int size);
 
-	
+
+private:
+
+	bool IsBufferFull;
+
 
 };
