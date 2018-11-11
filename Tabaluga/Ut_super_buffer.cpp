@@ -680,10 +680,10 @@ namespace SuperBuffer
 
 
 
-			superbuffer.pop(wsk2, 4);
-			superbuffer.pop(wsk2, 4);
-			superbuffer.pop(wsk2, 4);
-			Assert::AreEqual('e', tab2[0]);
+			superbuffer.pop(wsk2, 5);
+			//superbuffer.pop(wsk2, 4);
+			//superbuffer.pop(wsk2, 4);
+			Assert::AreEqual('b', tab2[0]);
 
 		}
 	
