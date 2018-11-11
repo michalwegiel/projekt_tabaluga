@@ -92,16 +92,23 @@ CyclicBufferErrorCode Cyclic_buffer<T, array_size>::popFromtop(T *k)
 	if (fill_level <= 0) //zabezpieczenie przed wyciaganiem z pustego bufora
 	{
 		result = BUFFER_EMPTY;
-	} else
-		{	
-			*k = tab[--tail];
+	}
+	else
+	{
+		if (tail == 0)
+		{
+			tail = array_size - 1;
+			*k = tab[tail];
 			fill_level--;
-				if (tail < 0)
-					tail = array_size - 1;
-
 			result = BUFFER_SUCCESS;
 		}
-
+		else
+		{
+			*k = tab[--tail];
+			fill_level--;
+			result = BUFFER_SUCCESS;
+		}
+	}
 	return result;
 }
 //------------------------------------------------------------------------
