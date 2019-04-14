@@ -1,65 +1,85 @@
 #include "stdafx.h"
 #include "super_buffer.h"
+#include "cyclic_buffer.h"
 
-
-
-void buffer::push(char element)
+Super_buffer::Super_buffer():buffer() //lista inicjalizacyjna - wywolanie konstruktora dla obiektu buffer
 {
-	if (fill_level >= 100)
-	{
-		//cout << endl << "Buffer is full!";
-	}
-	else
-	{
-		tab[tail] = element;
-		//cout << endl << element << " added in buffer on position: " << tail;
-		tail = (tail + 1) % 100;
-		fill_level++;
-	}
+	IsBufferFull = false;
+	LastPushedChar = '\0';
 }
-
 //------------------------------------------------------------------------
-
-void buffer::get_command()
+Super_buffer::~Super_buffer()
 {
-	if (fill_level == 0)
+
+}
+//------------------------------------------------------------------------
+SuperBufferErrorCode Super_buffer::push(char element)
+{	
+	SuperBufferErrorCode result;
+	if (IsBufferFull == true && element == '\0')
+	{	
+		IsBufferFull = false;
+		result = SUPER_BUFFER_SUCCESS;
+	} 
+	else if (LastPushedChar == '\0' && element == '\0')
 	{
-		//cout << endl << "Buffer is empty!";
+		result = SUPER_BUFFER_ERROR_MULTI_ENTER_SEND;
 	}
-	else
+	else if (IsBufferFull == false)
 	{
-		//cout << endl;
-		while (tab[head] != 'Q' && buffer::empty() != true)
+		if (buffer.push(element) == BUFFER_SUCCESS)
 		{
-			//cout << char(tab[head]);
-			head = (head + 1) % 100;
-			fill_level--;
+			IsBufferFull = false;
+			LastPushedChar = element;
+			result = SUPER_BUFFER_SUCCESS;
 		}
-		if (tab[head] == 'Q')
+		else
 		{
-			head = (head + 1) % 100;
-			fill_level--;
+			IsBufferFull = true;
+			char trash;
+			char *trash_indicator;
+			trash_indicator = &trash;
+			do {
+				buffer.popFromtop(trash_indicator);
+			} while (*trash_indicator != '\0' && buffer.empty() != true);
+					
+			if (buffer.empty() != true)
+				buffer.push('\0');  
+
+			result = SUPER_BUFFER_ERROR_CYCLIC_BUFFER_FULL;
 		}
-		//cout << endl;
+	} else result = SUPER_BUFFER_ERROR_CYCLIC_BUFFER_FULL;
+	
+	return result;
+} 
+//------------------------------------------------------------------------
+SuperBufferErrorCode Super_buffer::pop(char *command, int size)
+{	
+	SuperBufferErrorCode result = SUPER_BUFFER_SUCCESS;
+	int i = 1;
+	if (buffer.pop(command) == BUFFER_EMPTY)
+		result = SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY;
+
+	while (*command != '\0' && i < size && result != SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY)
+	{	
+		i++;
+		if (buffer.pop(++command) == BUFFER_EMPTY)
+			result = SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY;
+		else if (*command == '\0' && i < size)
+			result = SUPER_BUFFER_ERROR_COMMAND_SMALLER_THAN_EXPECTED;
+		else if (*command != '\0' && i == size)
+		{
+			do {
+				buffer.pop(command);
+			} while (*command != '\0' && buffer.empty() != true);
+			result = SUPER_BUFFER_ERROR_SIZE_SMALLER_THAN_COMMAND_IN_CYCLIC_BUFFER;
+		}
+		else if (result != SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY)
+			result = SUPER_BUFFER_SUCCESS;
 	}
+	
 
-
+	return result;
 }
 //------------------------------------------------------------------------
-
-void buffer::size()
-{
-	//cout << endl << "Number of elements in buffer: " << fill_level;
-}
-
-//------------------------------------------------------------------------
-
-bool buffer::empty()
-{
-
-	if (fill_level == 0) return true;
-	else return false;
-
-}
-
 

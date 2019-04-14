@@ -1,18 +1,31 @@
 #pragma once
-class buffer
+#include "stdafx.h"
+#include "cyclic_buffer.h"
+
+enum SuperBufferErrorCode
 {
+	SUPER_BUFFER_SUCCESS = 0,
+	SUPER_BUFFER_ERROR_SIZE_SMALLER_THAN_COMMAND_IN_CYCLIC_BUFFER = -1,
+	SUPER_BUFFER_ERROR_COMMAND_SMALLER_THAN_EXPECTED = -2,
+	SUPER_BUFFER_ERROR_CYCLIC_BUFFER_FULL = -3,
+	SUPER_BUFFER_ERROR_CYCLIC_BUFFER_EMPTY = -4,
+	SUPER_BUFFER_ERROR_MULTI_ENTER_SEND = -5
+};
+
+class Super_buffer
+{
+	Cyclic_buffer<char, 100> buffer;
+
 public:
 
-	char tab[100];
-	int fill_level = 0;
-	int head = 0;
-	int tail = 0;
+	Super_buffer();
+	~Super_buffer();
+	SuperBufferErrorCode push(char element);
+	SuperBufferErrorCode pop(char *c, int size);
 
 
-	void push(char);
-	void get_command();
-	void size();
-	bool empty();
-	
+private:
 
+	bool IsBufferFull;
+	char LastPushedChar;
 };

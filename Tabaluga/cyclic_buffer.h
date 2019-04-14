@@ -17,6 +17,7 @@ public:
 	~Cyclic_buffer();
 	CyclicBufferErrorCode push(T element);
 	CyclicBufferErrorCode pop(T *c);
+	CyclicBufferErrorCode popFromtop(T *k);
 	unsigned int size();
 	bool empty();
 
@@ -44,8 +45,6 @@ Cyclic_buffer<T, array_size>::~Cyclic_buffer()
 {
 	delete [] tab;
 }
-
-
 //------------------------------------------------------------------------
 template <typename T, int array_size>
 CyclicBufferErrorCode Cyclic_buffer<T, array_size>::push(T element)
@@ -55,34 +54,61 @@ CyclicBufferErrorCode Cyclic_buffer<T, array_size>::push(T element)
 	{
 		result = BUFFER_FULL;
 	} else
-
 	{
 		tab[tail] = element;
 		tail = (tail + 1) % array_size;
 		fill_level++;
 		result = BUFFER_SUCCESS;
 	}
+
 	return result;
 }
-
 //------------------------------------------------------------------------
 template <typename T, int array_size>
 CyclicBufferErrorCode Cyclic_buffer<T, array_size>::pop(T *c)
+{
+	CyclicBufferErrorCode result;
+
+		if (fill_level <= 0) //zabezpieczenie przed wyciaganiem z pustego bufora
+		{
+			result = BUFFER_EMPTY;
+		}
+
+		else
+		{
+			*c = tab[head];
+			head = (head + 1) % array_size;
+			fill_level--;
+			result = BUFFER_SUCCESS;
+		}
+
+	return result;
+}
+//------------------------------------------------------------------------
+template <typename T, int array_size>
+CyclicBufferErrorCode Cyclic_buffer<T, array_size>::popFromtop(T *k)
 {
 	CyclicBufferErrorCode result;
 	if (fill_level <= 0) //zabezpieczenie przed wyciaganiem z pustego bufora
 	{
 		result = BUFFER_EMPTY;
 	}
-
 	else
 	{
-		*c = tab[head];
-		head = (head + 1) % array_size;
-		fill_level--;
-		result = BUFFER_SUCCESS;
+		if (tail == 0)
+		{
+			tail = array_size - 1;
+			*k = tab[tail];
+			fill_level--;
+			result = BUFFER_SUCCESS;
+		}
+		else
+		{
+			*k = tab[--tail];
+			fill_level--;
+			result = BUFFER_SUCCESS;
+		}
 	}
-	
 	return result;
 }
 //------------------------------------------------------------------------
@@ -101,3 +127,4 @@ bool Cyclic_buffer<T, array_size>::empty()
 	else return false;
 
 }
+//------------------------------------------------------------------------

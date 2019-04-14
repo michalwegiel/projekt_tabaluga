@@ -16,6 +16,9 @@
     <Filter Include="Pliki źródłowe\cyclic_buffer">
       <UniqueIdentifier>{89f20c5d-e76f-4884-8950-14e2deebef49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Pliki źródłowe\Super_buffer">
+      <UniqueIdentifier>{58dea07c-263e-4628-8eff-7b2888d4b2fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -24,22 +27,25 @@
     <ClInclude Include="targetver.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="super_buffer.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="cyclic_buffer.h">
       <Filter>Pliki źródłowe\cyclic_buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="super_buffer.h">
+      <Filter>Pliki źródłowe\Super_buffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="super_buffer.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="Ut_cyclic_buffer.cpp">
       <Filter>Pliki źródłowe\cyclic_buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="super_buffer.cpp">
+      <Filter>Pliki źródłowe\Super_buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Ut_super_buffer.cpp">
+      <Filter>Pliki źródłowe\Super_buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
